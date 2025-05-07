@@ -35,9 +35,9 @@ services:
       VECTOR_DB_TOPK: 100
 
       ##===LLM Model specific configurations===
-      APP_LLM_MODELNAME: ${APP_LLM_MODELNAME:-"nvidia/llama-3.3-nemotron-super-49b-v1"}
+      APP_LLM_MODELNAME: ${APP_LLM_MODELNAME:-"nvidia-mistralai/mistral-nemo-12b-instruct"}
       # url on which llm model is hosted. If "", Nvidia hosted API is used
-      APP_LLM_SERVERURL: ${APP_LLM_SERVERURL-"nim-llm:8000"}
+      APP_LLM_SERVERURL: ${APP_LLM_SERVERURL-"nim-llm-ms:8000"}
 
       ##===Query Rewriter Model specific configurations===
       APP_QUERYREWRITER_MODELNAME: ${APP_QUERYREWRITER_MODELNAME:-"meta/llama-3.1-8b-instruct"}
