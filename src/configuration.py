@@ -105,19 +105,19 @@ class NvIngestConfig(ConfigWizard):
 
     extract_charts: bool = configfield(
         "extract_charts",
-        default=True,
+        default=False,
         help_txt="Enable extract charts for nv-ingest extraction",
     )
 
     extract_images: bool = configfield(
         "extract_images",
-        default=True,
+        default=False,
         help_txt="Enable extract images for nv-ingest extraction",
     )
 
     pdf_extract_method: str = configfield(
         "pdf_extract_method",
-        default="None", # Literal['pdfium','nemoretriever_parse','None']
+        default="pdfium", # Literal['pdfium','nemoretriever_parse','None']
         help_txt="Extract method 'pdfium', 'nemoretriever_parse', 'None'",
     )
 
