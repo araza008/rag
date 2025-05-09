@@ -105,13 +105,13 @@ class NvIngestConfig(ConfigWizard):
 
     extract_charts: bool = configfield(
         "extract_charts",
-        default=False,
+        default=True,
         help_txt="Enable extract charts for nv-ingest extraction",
     )
 
     extract_images: bool = configfield(
         "extract_images",
-        default=False,
+        default=True,
         help_txt="Enable extract images for nv-ingest extraction",
     )
 
