@@ -85,7 +85,7 @@ services:
     profiles: ["", "rag"]
 
   page-elements:
-    image: nvcr.io/nim/nvidia/nv-yolox-page-elements-v1:1.1.0-rtx
+    image: nvcr.io/nim/nvidia/nemoretriever-page-elements-v2
     ports:
       - "8000:8000"
       - "8001:8001"
