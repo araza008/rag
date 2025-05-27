@@ -85,7 +85,7 @@ services:
     profiles: ["", "rag"]
 
   page-elements:
-    image: nvcr.io/nim/nvidia/nemoretriever-page-elements-v2
+    image: ${YOLOX_IMAGE:-nvcr.io/nim/nvidia/nemoretriever-page-elements-v2}:${YOLOX_TAG:-1.2.0}
     ports:
       - "8000:8000"
       - "8001:8001"
