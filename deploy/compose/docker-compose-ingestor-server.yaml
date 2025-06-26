@@ -98,7 +98,7 @@ services:
       - "6379:6379"
 
   nv-ingest-ms-runtime:
-    image: nvcr.io/nvidia/nemo-microservices/nv-ingest:25.4.1
+    image: nvcr.io/nvstaging/nim/nv-ingest:25.6.1
     volumes:
       - ${DATASET_ROOT:-./data}:/workspace/data
     ports:
