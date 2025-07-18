@@ -3,7 +3,7 @@ services:
   # Main ingestor server which is responsible for ingestion
   ingestor-server:
     container_name: ingestor-server
-    image: nvcr.io/nvstaging/blueprint/ingestor-server:${TAG:-2.1.0}
+    image: nvcr.io/nvidia/blueprint/ingestor-server:${TAG:-2.1.0}
     build:
       # Set context to repo's root directory
       context: ../../
@@ -59,7 +59,7 @@ services:
       ##===NV-Ingest Splitting Configurations========
       APP_NVINGEST_CHUNKSIZE: ${APP_NVINGEST_CHUNKSIZE:-512}
       APP_NVINGEST_CHUNKOVERLAP: ${APP_NVINGEST_CHUNKOVERLAP:-150}
-      APP_NVINGEST_ENABLE_PDF_SPLITTER: ${APP_NVINGEST_ENABLE_PDF_SPLITTER:-True}
+      APP_NVINGEST_ENABLEPDFSPLITTER: ${APP_NVINGEST_ENABLEPDFSPLITTER:-True}
 
       ##===NV-Ingest Caption Model configurations====
       APP_NVINGEST_CAPTIONMODELNAME: ${APP_NVINGEST_CAPTIONMODELNAME:-"meta/llama-3.2-11b-vision-instruct"}

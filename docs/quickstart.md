@@ -99,10 +99,10 @@ Use the following procedure to start all containers needed for this blueprint. T
    ```
 
 4. Start all required NIMs.
-   
-   Before running the command please ensure the GPU allocation is done appropriately in the deploy/compose/.env. You might need to override them    
-   for the hardware you are deploying this blueprint on. The default assumes you are deploying this on a 2XH100 environment. 
-   
+
+   Before running the command please ensure the GPU allocation is done appropriately in the deploy/compose/.env. You might need to override them
+   for the hardware you are deploying this blueprint on. The default assumes you are deploying this on a 2XH100 environment.
+
    ```bash
    USERID=$(id -u) docker compose -f deploy/compose/nims.yaml up -d
    ```
@@ -421,7 +421,7 @@ kubectl create namespace rag
 Run the following command to install the RAG server with the Ingestor Server and Frontend enabled:
 
 ```sh
-helm upgrade --install rag -n rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz \
+helm upgrade --install rag -n rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz \
 --username '$oauthtoken' \
 --password "${NGC_API_KEY}" \
 --set imagePullSecret.password=$NGC_API_KEY \
@@ -439,8 +439,7 @@ helm repo add nvidia-nim https://helm.ngc.nvidia.com/nim/nvidia/ --username='$oa
 helm repo add nim https://helm.ngc.nvidia.com/nim/ --username='$oauthtoken' --password=$NGC_API_KEY
 helm repo add nemo-microservices https://helm.ngc.nvidia.com/nvidia/nemo-microservices --username='$oauthtoken' --password=$NGC_API_KEY
 helm repo add baidu-nim https://helm.ngc.nvidia.com/nim/baidu --username='$oauthtoken' --password=$NGC_API_KEY
-# Temporary for NV-Ingest RC artifacts
-helm repo add nvstaging-nim https://helm.ngc.nvidia.com/nvstaging/nim/ --username='$oauthtoken' --password=$NGC_API_KEY
+helm repo add nemo-microservices https://helm.ngc.nvidia.com/nvidia/nemo-microservices/ --username='$oauthtoken' --password=$NGC_API_KEY
 ```
 
 ##### Updating Helm Chart Dependencies
@@ -557,7 +556,7 @@ rag-zipkin                          ClusterIP      <none>        9411/TCP       
 #### Patching the deployment
 For patching an existing deployment, modify `values.yaml` with required changes and run
 ```sh
-helm upgrade --install rag -n rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz \
+helm upgrade --install rag -n rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz \
 --username '$oauthtoken' \
 --password "${NGC_API_KEY}" \
 --set imagePullSecret.password=$NGC_API_KEY \
@@ -599,7 +598,7 @@ To enable tracing and view the Zipkin or Grafana UI, follow these steps:
 
       ```sh
       helm uninstall rag -n rag
-      helm install rag -n rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz \
+      helm install rag -n rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz \
       --username '$oauthtoken' \
       --password "${NGC_API_KEY}" \
       --set imagePullSecret.password=$NGC_API_KEY \
@@ -670,7 +669,7 @@ helm uninstall rag -n rag
 Run the following command to install the RAG Server:
 
 ```sh
-helm upgrade --install rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz -n rag \
+helm upgrade --install rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz -n rag \
   --username '$oauthtoken' \
   --password "${NGC_API_KEY}" \
   --set imagePullSecret.password=$NGC_API_KEY \
@@ -748,7 +747,7 @@ To use a custom Milvus endpoint, you need to update the `APP_VECTORSTORE_URL` en
    Redeploy the Helm chart to apply these changes:
 
    ```sh
-   helm upgrade rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz -f rag-server/values.yaml -n rag
+   helm upgrade rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz -f rag-server/values.yaml -n rag
    ```
 
 #### (Optional) Customizing the RAG Server UI
@@ -818,7 +817,7 @@ To use a custom Milvus endpoint, you need to update the `APP_VECTORSTORE_URL` en
    - Run the following command to install the RAG server with the Ingestor Server and New Frontend with updated `<new-image-repository>` and `<new-image-tag>`:
 
       ```sh
-      helm install rag -n rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz \
+      helm install rag -n rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz \
       --username '$oauthtoken' \
       --password "${NGC_API_KEY}" \
       --set imagePullSecret.password=$NGC_API_KEY \
@@ -877,11 +876,11 @@ Follow the cells in the notebook to ingest the PDF files from the data/dataset f
 - [Support Multi-Turn Conversations](multiturn.md)
 - [Enable NeMo Guardrails for Content Safety](nemo-guardrails.md)
 - [Troubleshoot NVIDIA RAG Blueprint](troubleshooting.md)
-- [Understand latency breakdowns and debug errors using observability services](./observability.md)
-- [Enable Self-Reflection to improve accuracy](docs/self-reflection.md)
-- [Enable Query rewriting to Improve accuracy of Multi-Turn Conversations](docs/query_rewriter.md)
-- [Enable Image captioning support for ingested documents](docs/image_captioning.md)
-- [Enable hybrid search for milvus](docs/hybrid_search.md)
-- [Enable low latency, low compute text only pipeline](docs/text_only_ingest.md)
-- Explore [best practices for enhancing accuracy or latency](./docs/accuracy_perf.md)
-- Explore [migration guide](./docs/migration_guide.md) if you are migrating from rag v1.0.0 to this version.
+- [Understand latency breakdowns and debug errors using observability services](observability.md)
+- [Enable Self-Reflection to improve accuracy](self-reflection.md)
+- [Enable Query rewriting to Improve accuracy of Multi-Turn Conversations](query_rewriter.md)
+- [Enable Image captioning support for ingested documents](image_captioning.md)
+- [Enable hybrid search for milvus](hybrid_search.md)
+- [Enable low latency, low compute text only pipeline](text_only_ingest.md)
+- Explore [best practices for enhancing accuracy or latency](accuracy_perf.md)
+- Explore [migration guide](migration_guide.md) if you are migrating from rag v1.0.0 to this version.

@@ -8,7 +8,7 @@ imagePullSecret:
   password: ""
 
 image:
-  repository: nvcr.io/nvstaging/blueprint/ingestor-server
+  repository: nvcr.io/nvidia/blueprint/ingestor-server
   tag: "2.1.0"
   pullPolicy: IfNotPresent
 
@@ -63,7 +63,7 @@ envVars:
   # === NV-Ingest splitting configurations ===
   APP_NVINGEST_CHUNKSIZE: "1024"  # Size of chunks for splitting
   APP_NVINGEST_CHUNKOVERLAP: "150"  # Overlap size for chunks
-  APP_NVINGEST_ENABLE_PDF_SPLITTER: "True"  # Enable PDF splitter
+  APP_NVINGEST_ENABLEPDFSPLITTER: "True"  # Enable PDF splitter
 
   # === Redis configurations ===
   REDIS_HOST: "rag-redis-master"

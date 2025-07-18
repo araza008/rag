@@ -13,10 +13,9 @@ The following issues might arise when you work with the NVIDIA RAG Blueprint.
 - The Blueprint responses can have significant latency when using [NVIDIA API Catalog cloud hosted models](quickstart.md#deploy-with-docker-compose).
 - The accuracy of the pipeline is optimized for certain file types like `.pdf`, `.txt`, `.docx`. The accuracy may be poor for other file types supported by NvIngest, since image captioning is disabled by default.
 - The `rag-playground` container needs to be rebuild if the `APP_LLM_MODELNAME`, `APP_EMBEDDINGS_MODELNAME` or `APP_RANKING_MODELNAME` environment variable values are changed.
-- Optional features reflection, nemoguardrails and image captioning are not available in helm based deployment.
 - The NeMo LLM microservice may take upto 5-6 mins to start for every deployment.
 - While trying to upload multiple files at the same time, there may be a timeout error `Error uploading documents: [Error: aborted] { code: 'ECONNRESET' }`. Developers are encouraged to use API's directly for bulk uploading, instead of using the sameple rag-playground. The default timeout is set to 1 hour from UI side, while uploading.
-- In case of failure while uploading files, error messages are not shown in the user interface of rag-playground. Developers are encouraged to check the `ingestor-server` logs for details.
+- In case of failure while uploading files, error messages may not be shown in the user interface of rag-playground. Developers are encouraged to check the `ingestor-server` logs for details.
 
 ## ERROR: pip's dependency resolver during container building
 ```
@@ -127,7 +126,7 @@ kube-prometheus-stack:
 
 ## Out of Memory (OOM) Issues During Ingestion:
 
-If you encounter Out of Memory (OOM) errors during the ingestion process, enabling chunk-based ingestion can help manage memory usage more effectively. This can be done by setting the `ENABLE_NV_INGEST_BATCH_MODE` flag to `True`. Additionally you may tweak the value of `NV_INGEST_FILES_PER_BATCH` for optimized memory usage
+If you encounter Out of Memory (OOM) errors during the ingestion process, enabling batch-based ingestion can help manage memory usage more effectively. This can be done by setting the `ENABLE_NV_INGEST_BATCH_MODE` flag to `True`. Additionally you may tweak the value of `NV_INGEST_FILES_PER_BATCH` for optimized memory usage
 
 ### For Docker Compose Deployment
 
@@ -154,5 +153,21 @@ If you encounter Out of Memory (OOM) errors during the ingestion process, enabli
 
 2. Upgrade your Helm release:
    ```bash
-   helm upgrade rag https://helm.ngc.nvidia.com/nvstaging/blueprint/charts/nvidia-blueprint-rag-v2.1.1.tgz -f rag-server/values.yaml -n rag
+   helm upgrade rag https://helm.ngc.nvidia.com/nvidia/blueprint/charts/nvidia-blueprint-rag-v2.1.0.tgz -f rag-server/values.yaml -n rag
    ```
+
+## Missing Documents in Milvus Vector Database
+
+If you notice that some documents are missing from your ingested dataset in Milvus, try the following:
+
+1. Ensure batch mode ingestion is enabled by setting:
+   ```bash
+   export ENABLE_NV_INGEST_BATCH_MODE=True
+   ```
+
+2. If batch mode is already enabled but documents are still missing, try reducing the batch size by lowering the value of:
+   ```bash
+   export NV_INGEST_FILES_PER_BATCH=50  # Default is 128
+   ```
+
+This helps prevent memory issues during ingestion that could cause documents to be dropped. The optimal batch size will depend on your available system resources and document characteristics.
